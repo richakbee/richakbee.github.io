@@ -1,0 +1,3 @@
+User-agent: *
+
+Sitemap: https://richakbee.github.io/sitemap.xml
