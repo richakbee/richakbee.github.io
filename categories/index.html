@@ -65,9 +65,6 @@
 
   
   
-  
-  <script src="https://richakbee.github.io/js/mathjax-config.js"></script>
-  
 
   
   
@@ -88,8 +85,10 @@
     
       
       
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/solarized-dark.min.css" crossorigin="anonymous" title="hl-light">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/solarized-dark.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        
       
     
 
@@ -205,9 +204,9 @@
 
       
       
-
+        
       
-        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+
       
     
       
@@ -289,7 +288,7 @@
   <meta property="og:description" content="Richa Kaur"><meta property="og:image" content="https://richakbee.github.io/images/icon_hu6bff33d6d21873592e5202e35658285b_19800_512x512_fill_lanczos_center_2.png">
   <meta property="twitter:image" content="https://richakbee.github.io/images/icon_hu6bff33d6d21873592e5202e35658285b_19800_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
   
-    <meta property="og:updated_time" content="2019-02-05T00:00:00&#43;00:00">
+    <meta property="og:updated_time" content="2016-04-20T00:00:00&#43;00:00">
   
 
   
@@ -324,6 +323,39 @@
   <script src="https://richakbee.github.io/js/wowchemy-init.min.1df0392aab543464b23a85146803aaf2.js"></script>
 
   
+
+<aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control">
+        
+      </div>
+
+      
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
 
 
 
@@ -564,6 +596,10 @@
 
       
       
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
 
       
       
@@ -636,6 +672,16 @@
     
     <div>
       <h2><a href="https://richakbee.github.io/category/demo/" >Demo</a></h2>
+      <div class="article-style">
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div>
+      <h2><a href="https://richakbee.github.io/category/%E6%95%99%E7%A8%8B/" >教程</a></h2>
       <div class="article-style">
         
       </div>
@@ -725,8 +771,6 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/instant.page/5.1.0/instantpage.min.js" integrity="sha512-1+qUtKoh9XZW7j+6LhRMAyOrgSQKenQ4mluTR+cvxXjP1Z54RxZuzstR/H9kgPXQsVB8IW7DMDFUJpzLjvhGSQ==" crossorigin="anonymous"></script>
 
       
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.8.0/mermaid.min.js" integrity="sha512-ja+hSBi4JDtjSqc4LTBsSwuBT3tdZ3oKYKd07lTVYmCnTCor56AnRql00ssqnTOR9Ss4gOP/ROGB3SfcJnZkeg==" crossorigin="anonymous" title="mermaid"></script>
-      
 
       
         
@@ -749,12 +793,52 @@
     
 
     
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'event' : "Events",
+        'slides' : "Slides"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
 
     
     
 
     
-
     
     
 
@@ -763,14 +847,7 @@
 
     
     
-    
-
-    
-    
-
-    
-    
-    <script id="dsq-count-scr" src="https://richakbee.discuss.com.disqus.com/count.js" async></script>
+    <script id="dsq-count-scr" src="https://@theduffrichie.disqus.com/count.js" async></script>
     
 
     
@@ -783,8 +860,11 @@
     
     
     
+      
+      
     
-    <script src="https://richakbee.github.io/js/wowchemy.min.023d21ed9274c9619f3bcab353d9a10c.js"></script>
+    
+    <script src="https://richakbee.github.io/js/wowchemy.min.572b7caf7fe601716a0f74d67d754c21.js"></script>
 
     
 
