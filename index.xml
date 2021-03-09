@@ -406,6 +406,14 @@ Text(0.5, 1.0, &#39;max pool&#39;)
     </item>
     
     <item>
+      <title>Demand Forecasting (Bike Sharing &amp; Rental)</title>
+      <link>https://richakbee.github.io/project/demand-forecasting/</link>
+      <pubDate>Tue, 27 Oct 2020 00:00:00 +0000</pubDate>
+      <guid>https://richakbee.github.io/project/demand-forecasting/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Deep Neural Network from Scratch</title>
       <link>https://richakbee.github.io/post/deep_neural_nets/</link>
       <pubDate>Mon, 28 Sep 2020 00:00:00 +0000</pubDate>
@@ -1020,6 +1028,14 @@ accuracy_score(y_test, y_pred)
     </item>
     
     <item>
+      <title>US Agriculture and Farm Statistics</title>
+      <link>https://richakbee.github.io/project/us-agriculture-stats/</link>
+      <pubDate>Thu, 30 Apr 2020 00:00:00 +0000</pubDate>
+      <guid>https://richakbee.github.io/project/us-agriculture-stats/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Writing technical content in Academic</title>
       <link>https://richakbee.github.io/post/writing-technical-content/</link>
       <pubDate>Fri, 12 Jul 2019 00:00:00 +0000</pubDate>
@@ -1047,7 +1063,7 @@ data.head()
 &lt;p&gt;Demo:&lt;/p&gt;
 
 
-&lt;div id=&#34;chart-423718695&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
+&lt;div id=&#34;chart-794531826&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
 &lt;script&gt;
   (function() {
     let a = setInterval( function() {
@@ -1057,7 +1073,7 @@ data.head()
       clearInterval( a );
 
       Plotly.d3.json(&#34;./line-chart.json&#34;, function(chart) {
-        Plotly.plot(&#39;chart-423718695&#39;, chart.data, chart.layout, {responsive: true});
+        Plotly.plot(&#39;chart-794531826&#39;, chart.data, chart.layout, {responsive: true});
       });
     }, 500 );
   })();
@@ -1284,6 +1300,14 @@ You found me!
     </item>
     
     <item>
+      <title>COVID-19 Daily Report</title>
+      <link>https://richakbee.github.io/project/covid-daily-report/</link>
+      <pubDate>Fri, 29 Mar 2019 00:00:00 +0000</pubDate>
+      <guid>https://richakbee.github.io/project/covid-daily-report/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Display Jupyter Notebooks with Academic</title>
       <link>https://richakbee.github.io/post/jupyter/</link>
       <pubDate>Tue, 05 Feb 2019 00:00:00 +0000</pubDate>
@@ -1469,14 +1493,6 @@ Three
       <link>https://richakbee.github.io/project/big-mart-sales/</link>
       <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
       <guid>https://richakbee.github.io/project/big-mart-sales/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Demand Forecasting (Bike Sharing &amp; Rental)</title>
-      <link>https://richakbee.github.io/project/demand-forecasting/</link>
-      <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
-      <guid>https://richakbee.github.io/project/demand-forecasting/</guid>
       <description></description>
     </item>
     

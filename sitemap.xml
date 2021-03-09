@@ -63,6 +63,21 @@
   </url>
   
   <url>
+    <loc>https://richakbee.github.io/project/demand-forecasting/</loc>
+    <lastmod>2020-10-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://richakbee.github.io/tag/other/</loc>
+    <lastmod>2020-10-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://richakbee.github.io/project/</loc>
+    <lastmod>2020-10-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://richakbee.github.io/tag/deep-learning/</loc>
     <lastmod>2020-09-28T00:00:00+00:00</lastmod>
   </url>
@@ -93,8 +108,18 @@
   </url>
   
   <url>
+    <loc>https://richakbee.github.io/project/us-agriculture-stats/</loc>
+    <lastmod>2020-04-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://richakbee.github.io/post/writing-technical-content/</loc>
     <lastmod>2019-07-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://richakbee.github.io/project/covid-daily-report/</loc>
+    <lastmod>2019-03-29T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -128,11 +153,6 @@
   </url>
   
   <url>
-    <loc>https://richakbee.github.io/project/demand-forecasting/</loc>
-    <lastmod>2016-04-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://richakbee.github.io/project/digit-recognizer/</loc>
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
   </url>
@@ -149,16 +169,6 @@
   
   <url>
     <loc>https://richakbee.github.io/tag/machine-learning/</loc>
-    <lastmod>2016-04-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://richakbee.github.io/tag/other/</loc>
-    <lastmod>2016-04-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://richakbee.github.io/project/</loc>
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
   </url>
   
