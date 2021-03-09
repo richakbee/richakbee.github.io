@@ -5,12 +5,385 @@
     <link>https://richakbee.github.io/tag/computer-vision/</link>
       <atom:link href="https://richakbee.github.io/tag/computer-vision/index.xml" rel="self" type="application/rss+xml" />
     <description>Computer Vision</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>©.2021</copyright><lastBuildDate>Wed, 27 Apr 2016 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>©.2021</copyright><lastBuildDate>Sun, 08 Nov 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://richakbee.github.io/images/icon_hu6bff33d6d21873592e5202e35658285b_19800_512x512_fill_lanczos_center_2.png</url>
       <title>Computer Vision</title>
       <link>https://richakbee.github.io/tag/computer-vision/</link>
     </image>
+    
+    <item>
+      <title>Convolution Neural Network from Scratch</title>
+      <link>https://richakbee.github.io/post/cnn_from_scratch/</link>
+      <pubDate>Sun, 08 Nov 2020 00:00:00 +0000</pubDate>
+      <guid>https://richakbee.github.io/post/cnn_from_scratch/</guid>
+      <description>&lt;h2 id=&#34;import-libraries--data&#34;&gt;Import Libraries &amp;amp; Data&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;import numpy as np
+import matplotlib.pyplot as plt
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;import skimage.data  
+# Reading the image  
+img = skimage.data.chelsea()  
+# Converting the image into gray.  
+#img = skimage.color.rgb2gray(img)
+print(img.shape)
+plt.imshow(img)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;(300, 451, 3)
+
+
+
+
+
+&amp;lt;matplotlib.image.AxesImage at 0x1f452f43088&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://richakbee.github.io/images/CNNfromscratch/output_3_2.png&#34; alt=&#34;png&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;architecture&#34;&gt;Architecture&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;https://richakbee.github.io/images/CNNfromscratch/Architecture.jpg&#34; alt=&#34;image.png&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;funcions&#34;&gt;Funcions&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;zero padding&lt;/li&gt;
+&lt;li&gt;colvolution operation&lt;/li&gt;
+&lt;li&gt;forward pass in convolution&lt;/li&gt;
+&lt;li&gt;pooling operation forward&lt;/li&gt;
+&lt;li&gt;backward pass in colvolution&lt;/li&gt;
+&lt;li&gt;pooling operation backward&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;zero-padding&#34;&gt;Zero padding&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;https://richakbee.github.io/images/CNNfromscratch/zeropadding.jpg&#34; alt=&#34;image.jpg&#34;&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def zero_pad(X, pad):
+    &amp;quot;&amp;quot;&amp;quot;
+    Pad with zeros all images of the dataset X. The padding is applied to the height and width of an image, 
+    as illustrated in Figure 1.
+    
+    Argument:
+    X -- python numpy array of shape (m, n_H, n_W, n_C) representing a batch of m images
+    pad -- integer, amount of padding around each image on vertical and horizontal dimensions
+    
+    Returns:
+    X_pad -- padded image of shape (m, n_H + 2*pad, n_W + 2*pad, n_C)
+    &amp;quot;&amp;quot;&amp;quot;
+    X_pad= np.pad(X,((0,0),(pad,pad),(pad,pad),(0,0)),mode=&amp;quot;constant&amp;quot;,constant_values=(0,0))
+    
+    return X_pad
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;x=np.expand_dims(img, axis=0)
+x_pad=zero_pad(x,20)
+print(x.shape,x_pad.shape)
+fig,axs=plt.subplots(1,2)
+
+axs[0].imshow(x[0,:,:,:])
+axs[0].set_title(&#39;X&#39;)
+axs[1].imshow(x_pad[0,:,:,:])
+axs[1].set_title(&#39;X_pad&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;(1, 300, 451, 3) (1, 340, 491, 3)
+
+
+
+
+
+Text(0.5, 1.0, &#39;X_pad&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://richakbee.github.io/images/CNNfromscratch/output_8_2.png&#34; alt=&#34;png&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;convolution-operation&#34;&gt;Convolution operation&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;https://richakbee.github.io/images/CNNfromscratch/convolutionstep.gif&#34; alt=&#34;image.gif&#34;&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def conv_single_step(a_slice_prev, W, b):
+    &amp;quot;&amp;quot;&amp;quot;
+    Apply one filter defined by parameters W on a single slice (a_slice_prev) of the output activation 
+    of the previous layer.
+    
+    Arguments:
+    a_slice_prev -- slice of input data of shape (f, f, n_C_prev)
+    W -- Weight parameters contained in a window - matrix of shape (f, f, n_C_prev)
+    b -- Bias parameters contained in a window - matrix of shape (1, 1, 1)
+    
+    Returns:
+    Z -- a scalar value, the result of convolving the sliding window (W, b) on a slice x of the input data
+    &amp;quot;&amp;quot;&amp;quot;
+    s=np.multiply(a_slice_prev,W)
+    
+    Z=np.sum(s)
+    
+    Z=Z+np.float(b)
+    
+    return Z
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;l1_filter=np.zeros((3,3,3))
+l1_filter[:, :,0] = np.array([[[-1, 0, 1],   
+                                    [-1, 0, 1],   
+                                     [-1, 0, 1]]])  
+l1_filter[:, :, 1] = np.array([[[1,   1,  1],   
+                                     [0,   0,  0],   
+                                    [-1, -1, -1]]]) 
+l1_filter[:, :, 2] = np.array([[[1,   1,  1],   
+                                     [0,   0,  0],   
+                                    [-1, -1, -1]]]) 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;#for a slice
+np.random.seed(1)
+a_slice_prev = img[20:23,20:23,:]
+plt.imshow(img[20:23,20:23,:])
+W = l1_filter
+b = np.random.randn(1, 1, 1)
+
+Z = conv_single_step(a_slice_prev, W, b)
+print(&amp;quot;Z =&amp;quot;, Z)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;Z = -19.37565463633676
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://richakbee.github.io/images/CNNfromscratch/output_12_1.png&#34; alt=&#34;png&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;convolution-forward-operation&#34;&gt;Convolution forward operation&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;https://richakbee.github.io/images/CNNfromscratch/convforward.jpg&#34; alt=&#34;image.png&#34;&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def conv_forward(A_prev, W, b, hparameters):
+    &amp;quot;&amp;quot;&amp;quot;
+    Implements the forward propagation for a convolution function
+    
+    Arguments:
+    A_prev -- output activations of the previous layer, 
+        numpy array of shape (m, n_H_prev, n_W_prev, n_C_prev)
+    W -- Weights, numpy array of shape (f, f, n_C_prev, n_C)
+    b -- Biases, numpy array of shape (1, 1, 1, n_C)
+    hparameters -- python dictionary containing &amp;quot;stride&amp;quot; and &amp;quot;pad&amp;quot;
+        
+    Returns:
+    Z -- conv output, numpy array of shape (m, n_H, n_W, n_C)
+    cache -- cache of values needed for the conv_backward() function
+    &amp;quot;&amp;quot;&amp;quot;
+    m, n_H_prev, n_W_prev, n_C_prev =A_prev.shape
+    f, f, n_C_prev, n_C =W.shape
+    stride=hparameters[&amp;quot;stride&amp;quot;]
+    pad =hparameters[&amp;quot;pad&amp;quot;]
+    
+    #step 1 calculate final n_H , n_w post convolution operation
+    n_H = 1+int((n_H_prev+2*pad-f)/stride)
+    n_W = 1+int((n_W_prev+2*pad-f)/stride)
+    
+    #step 2 pad the image
+    A_prev_pad=zero_pad(A_prev, pad)
+    
+    # Initialize the output volume Z with zeros. (≈1 line)
+    Z = np.zeros((m,n_H,n_W,n_C))
+    A=np.zeros((m,n_H,n_W,n_C))
+    
+    #step 3 generate sub parts of image for convolution operation for all m training examples
+    for i in range(m):
+        a_prev_pad=A_prev_pad[i,:,:,:] #get the ith image from m images
+        
+        for h in range(int(n_H)): #loop over vertical axis of image
+            vert_start = h*stride
+            vert_end = vert_start+f
+            
+            for  w in range(int(n_W)):# loop over horizontal axis
+                horiz_start = w*stride
+                horiz_end = horiz_start+f
+                
+                for c in range(n_C):# loop over the new no of channels(#filters)
+                    #for all the channel in previous image
+                    a_slice_prev = a_prev_pad[vert_start:vert_end,horiz_start:horiz_end,0:n_C_prev]
+                    
+                    weights = W[:,:,:,c] #get the value of filter and bias for a particular filter
+                    bias =b[:,:,:,c]
+                    Z[i,h,w,c]=conv_single_step(a_slice_prev,weights,bias)
+                    A[i,h,w,c] =np.where(Z[i,h,w,c]&amp;gt;0,Z[i,h,w,c],0)
+                    
+        assert(Z.shape==(m,n_H,n_W,n_C))
+        
+        cache=(A_prev,W,b,hparameters)
+        
+        return A,cache
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;#for the entire image
+filter_stack = np.zeros((3,3,3,3))
+for i in range(3):
+    filter_stack[:,:,:,i]=l1_filter
+filter_stack  
+
+A_prev = np.expand_dims(img, axis=0) #10examples, each image of height=5,width=7,no_of channels =4
+W = filter_stack#filter of height=3,width=3,no_of channel is same as iamge=4,no of filters=3
+b = np.random.randn(1,1,1,3)#bias of size h=1,w=1,depht/no of channel=1,for each filter so 8
+hparameters = {&amp;quot;pad&amp;quot; : 1,
+               &amp;quot;stride&amp;quot;: 2}
+
+A, cache_conv = conv_forward(A_prev, W, b, hparameters)
+plt.imshow(Z[0,:,:,:])
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;Clipping input data to the valid range for imshow with RGB data ([0..1] for floats or [0..255] for integers).
+
+
+
+
+
+&amp;lt;matplotlib.image.AxesImage at 0x1f4536ad1c8&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://richakbee.github.io/images/CNNfromscratch/output_16_2.png&#34; alt=&#34;png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;CONV layer should also contain an activation, in which case we would add the following line of code:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Convolve the window to get back one output neuron
+Z[i, h, w, c] = &amp;hellip;&lt;/li&gt;
+&lt;li&gt;Apply activation
+A[i, h, w, c] = activation(Z[i, h, w, c])&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;pooling-forward&#34;&gt;Pooling forward&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;https://richakbee.github.io/images/CNNfromscratch/pooling.jpg&#34; alt=&#34;image.jpg&#34;&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def pool_forward(A_prev, hparameters, mode = &amp;quot;max&amp;quot;):
+    &amp;quot;&amp;quot;&amp;quot;
+    Implements the forward pass of the pooling layer
+    
+    Arguments:
+    A_prev -- Input data, numpy array of shape (m, n_H_prev, n_W_prev, n_C_prev)
+    hparameters -- python dictionary containing &amp;quot;f&amp;quot; and &amp;quot;stride&amp;quot;
+    mode -- the pooling mode you would like to use, defined as a string (&amp;quot;max&amp;quot; or &amp;quot;average&amp;quot;)
+    
+    Returns:
+    A -- output of the pool layer, a numpy array of shape (m, n_H, n_W, n_C)
+    cache -- cache used in the backward pass of the pooling layer, contains the input and hparameters 
+    &amp;quot;&amp;quot;&amp;quot;
+    
+    m, n_H_prev, n_W_prev, n_C_prev = A_prev.shape
+    stride=hparameters[&amp;quot;stride&amp;quot;]
+    f =hparameters[&amp;quot;f&amp;quot;]
+    
+    #step 1 calculate final n_H , n_w post convolution operation
+    n_H = int(1 + (n_H_prev - f) / stride)
+    n_W = int(1 + (n_W_prev - f) / stride)
+    n_C = n_C_prev
+    
+    
+    # Initialize the output volume Z with zeros. (≈1 line)
+    A = np.zeros((m,n_H,n_W,n_C))
+    
+    #step 3 generate sub parts of image for convolution operation for all m training examples
+    for i in range(m):
+        a_prev=A_prev[i,:,:,:] #get the ith image from m images
+        
+        for h in range(int(n_H)): #loop over vertical axis of image
+            vert_start = h*stride
+            vert_end = vert_start+f
+            
+            for  w in range(int(n_W)):# loop over horizontal axis
+                horiz_start = w*stride
+                horiz_end = horiz_start+f
+                
+                for c in range(n_C):# loop over the new no of channels(#filters)
+                    #for all the channel in previous image
+                    a_slice_prev = a_prev[vert_start:vert_end,horiz_start:horiz_end,0:n_C_prev]
+                    
+                    # Compute the pooling operation on the slice. 
+                    # Use an if statement to differentiate the modes. 
+                    # Use np.max and np.mean.
+                    if mode == &amp;quot;max&amp;quot;:
+                        A[i, h, w, c] = np.max(a_slice_prev )
+                    elif mode == &amp;quot;average&amp;quot;:
+                        A[i, h, w, c] = np.mean(a_slice_prev )
+                        
+                    
+        assert(A.shape==(m,n_H,n_W,n_C))
+        
+        cache=(A_prev,hparameters)
+        
+        return A,cache
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;#stride of 1
+np.random.seed(1)
+A_prev = A
+hparameters = {&amp;quot;stride&amp;quot; : 1, &amp;quot;f&amp;quot;: 3}
+
+fig,axs=plt.subplots(1,2)
+
+A, cache = pool_forward(A_prev, hparameters)
+print(&amp;quot;mode = max&amp;quot;)
+#print(&amp;quot;A.shape = &amp;quot; + str(A.shape))
+#print(&amp;quot;A =\n&amp;quot;, A)
+print()
+print(A.shape)
+
+axs[0].imshow(A_prev[0,:,:,:])
+axs[0].set_title(&#39;A prev&#39;)
+axs[1].imshow(A[0,:,:,:])
+axs[1].set_title(&#39;max pool&#39;)
+
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;Clipping input data to the valid range for imshow with RGB data ([0..1] for floats or [0..255] for integers).
+Clipping input data to the valid range for imshow with RGB data ([0..1] for floats or [0..255] for integers).
+
+
+mode = max
+
+(1, 148, 224, 3)
+
+
+
+
+
+Text(0.5, 1.0, &#39;max pool&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://richakbee.github.io/images/CNNfromscratch/output_20_3.png&#34; alt=&#34;png&#34;&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;
+A, cache = pool_forward(A_prev, hparameters, mode = &amp;quot;average&amp;quot;)
+print(&amp;quot;mode = average&amp;quot;)
+#print(&amp;quot;A.shape = &amp;quot; + str(A.shape))
+#print(&amp;quot;A =\n&amp;quot;, A)
+
+fig,axs=plt.subplots(1,2)
+axs[0].imshow(A_prev[0,:,:,:])
+axs[0].set_title(&#39;A prev&#39;)
+axs[1].imshow(A[0,:,:,:])
+axs[1].set_title(&#39;average pool&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;Clipping input data to the valid range for imshow with RGB data ([0..1] for floats or [0..255] for integers).
+Clipping input data to the valid range for imshow with RGB data ([0..1] for floats or [0..255] for integers).
+
+
+mode = average
+
+
+
+
+
+Text(0.5, 1.0, &#39;average pool&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://richakbee.github.io/images/CNNfromscratch/output_21_3.png&#34; alt=&#34;png&#34;&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;#stride of 2
+np.random.seed(1)
+
+hparameters = {&amp;quot;stride&amp;quot; : 2, &amp;quot;f&amp;quot;: 3}
+
+fig,axs=plt.subplots(1,2)
+
+A, cache = pool_forward(A_prev, hparameters)
+print(&amp;quot;mode = max&amp;quot;)
+#print(&amp;quot;A.shape = &amp;quot; + str(A.shape))
+#print(&amp;quot;A =\n&amp;quot;, A)
+print()
+
+axs[0].imshow(A_prev[0,:,:,:])
+axs[0].set_title(&#39;A prev&#39;)
+axs[1].imshow(A[0,:,:,:])
+axs[1].set_title(&#39;max pool&#39;)
+
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;Clipping input data to the valid range for imshow with RGB data ([0..1] for floats or [0..255] for integers).
+Clipping input data to the valid range for imshow with RGB data ([0..1] for floats or [0..255] for integers).
+
+
+mode = max
+
+
+
+
+
+
+Text(0.5, 1.0, &#39;max pool&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://richakbee.github.io/images/CNNfromscratch/output_22_3.png&#34; alt=&#34;png&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;put-it-all-together-cnn&#34;&gt;Put it all together (CNN)&lt;/h2&gt;
+&lt;p&gt;we will see this in the second part of the post .&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Digit Recognizer</title>

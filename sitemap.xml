@@ -18,8 +18,78 @@
   </url>
   
   <url>
+    <loc></loc>
+    <lastmod>2020-11-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://richakbee.github.io/categories/</loc>
+    <lastmod>2020-11-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://richakbee.github.io/tag/computer-vision/</loc>
+    <lastmod>2020-11-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://richakbee.github.io/category/computer-vision/</loc>
+    <lastmod>2020-11-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://richakbee.github.io/post/cnn_from_scratch/</loc>
+    <lastmod>2020-11-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://richakbee.github.io/tag/jupyter/</loc>
+    <lastmod>2020-11-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://richakbee.github.io/post/</loc>
-    <lastmod>2019-12-05T00:00:00+00:00</lastmod>
+    <lastmod>2020-11-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc></loc>
+    <lastmod>2020-11-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://richakbee.github.io/tags/</loc>
+    <lastmod>2020-11-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://richakbee.github.io/tag/deep-learning/</loc>
+    <lastmod>2020-09-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://richakbee.github.io/category/deep-learning/</loc>
+    <lastmod>2020-09-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://richakbee.github.io/post/deep_neural_nets/</loc>
+    <lastmod>2020-09-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://richakbee.github.io/tag/natural-language/</loc>
+    <lastmod>2020-09-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://richakbee.github.io/category/natural-language/</loc>
+    <lastmod>2020-09-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://richakbee.github.io/post/nlp-demo/</loc>
+    <lastmod>2020-09-05T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -28,38 +98,13 @@
   </url>
   
   <url>
-    <loc></loc>
-    <lastmod>2019-12-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://richakbee.github.io/tag/jupyter/</loc>
-    <lastmod>2019-12-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://richakbee.github.io/categories/</loc>
-    <lastmod>2019-12-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://richakbee.github.io/category/demo/</loc>
-    <lastmod>2019-12-05T00:00:00+00:00</lastmod>
+    <lastmod>2019-10-05T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://richakbee.github.io/post/jupyter/</loc>
     <lastmod>2019-10-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://richakbee.github.io/post/nlp-demo/</loc>
-    <lastmod>2019-12-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc></loc>
-    <lastmod>2019-12-05T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -73,22 +118,12 @@
   </url>
   
   <url>
-    <loc>https://richakbee.github.io/tags/</loc>
-    <lastmod>2019-12-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://richakbee.github.io/project/back-order/</loc>
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://richakbee.github.io/project/big-mart-sales/</loc>
-    <lastmod>2016-04-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://richakbee.github.io/tag/computer-vision/</loc>
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
   </url>
   
@@ -114,11 +149,6 @@
   
   <url>
     <loc>https://richakbee.github.io/tag/machine-learning/</loc>
-    <lastmod>2016-04-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://richakbee.github.io/tag/natural-language/</loc>
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
   </url>
   
